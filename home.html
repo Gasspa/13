@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"> 
+    <title>adiawd</title>
+</head>
+<body>
+    <section id="lewo">
+        <ul>
+            <li> 1</li>
+            <li> 2</li>
+            <li> 3</li>
+        </ul>
+    </section>
+    <aside>
+        <form id="myForm" onsubmit="return validateForm()">
+            <label for="date">Data:</label>
+            <input type="text" id="date" name="date" placeholder="RRRR-MM-DD" required pattern="\d{4}-\d{2}-\d{2}">
+            <br><br>
+            <label for="quantity">Ilość osób:</label>
+            <input type="number" id="quantity" name="quantity" required>
+            <br><br>
+            <input type="checkbox" id="accept" name="accept" required>
+            <label for="accept">Akceptuję regulamin</label>
+            <br><br>
+            <button type="button" onclick="clearForm()">Wyczyść</button>
+            <button type="submit">Wyślij</button> 
+        </form> 
+        <p id="message"></p>
+    </aside>
+    <footer></footer>
+
+    <script>
+        function validateForm() {
+            var form = document.getElementById('myForm');
+            var dateInput = form.elements['date'];
+            var quantityInput = form.elements['quantity'];
+            var acceptInput = form.elements['accept'];
+
+            var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+            var dateValid = dateRegex.test(dateInput.value);
+
+            var quantityValid = !isNaN(quantityInput.valueAsNumber) && quantityInput.valueAsNumber > 0;
+
+            if (!dateValid || !quantityValid || !acceptInput.checked) {
+                showMessage("Proszę wprowadzić poprawne dane i zaakceptować regulamin.", true);
+                return false;
+            } else {
+                showMessage("Formularz wysłany poprawnie!", false);
+                form.reset();
+                return false;
+            }
+        }
+
+        function clearForm() {
+            document.getElementById('myForm').reset();
+        }
+
+        function showMessage(message, isError) {
+            if (isError) {
+                window.alert(message);
+            } else {
+                window.alert(message);
+            }
+        }
+    </script>
+</body>
+</html>
